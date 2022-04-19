@@ -1,0 +1,72 @@
+<html>
+<head>
+    <title>Salty 747 Calculator</title>
+    <style>
+        .inputValue, .percentValue { 
+            border: 2px solid #555; 
+            margin-top: 15px;
+            padding: 10px;
+            max-width: 400px;
+        }
+        #msg { color: red; }
+        .percentValue span { font-weight: bold; }
+    </style>
+    <script type="text/javascript">
+        /* all in LBS */
+        var emptyWeight = 485300;
+        var stabFuel = 22110;
+        var maxFuel = 421216;
+        var maxPayload = 80484;
+
+        function calc() {
+            document.getElementById('msg').innerText = '';
+
+            let fuelLbs = parseInt(document.getElementById('fuel').value);
+            let zfwLbs = parseInt(document.getElementById('zfw').value);
+            let fuelPercent = Math.ceil((fuelLbs / maxFuel) * 100);
+            let payloadLbs = zfwLbs - emptyWeight;
+            let payloadPercent = Math.ceil((payloadLbs / maxPayload) * 100);
+            let gross = emptyWeight + payloadLbs + fuelLbs;
+
+            document.getElementById('fuelPercent').innerText = fuelPercent + '%';
+            document.getElementById('payloadPercent').innerText = payloadPercent + '%';
+            document.getElementById('gross').innerText = gross + ' lbs';
+
+            if (fuelLbs > (maxFuel - stabFuel)) {
+                document.getElementById('msg').innerText = 'Exceeds max fuel weight, must be at or below: ' + (maxFuel - stabFuel) + ' lbs';
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+<h2>Salty 747 Calculator for Fuel/Weight</h2>
+
+<div class="inputValue">
+<label>Fuel (lbs):</label>
+<input id="fuel" name="fuel" type="number" />
+<br/><br/>
+<label>ZFW (lbs):</label>
+<input id="zfw" name="zfw" type="number" />
+<br/><br/>
+<input id="calculate" name="calculate" type="button" value="Calculate" onclick="calc()"/>
+</div>
+
+<div class="percentValue">
+<h3>MSFS 2020 fuel/weight percentages</h3>
+<label>Fuel Percentage:</label>
+<span id="fuelPercent" name="fuelPercent">NA</span>
+<br/><br/>
+<label>Payload Percentage:</label>
+<span id="payloadPercent" name="payloadPercent">NA</span>
+<br/><br/>
+<label>Gross Weight:</label>
+<span id="gross" name="gross">NA</span>
+<br/><br/>
+<span id="msg" name="msg"></span>
+</div>
+
+
+</body>
+</html>
