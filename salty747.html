@@ -16,7 +16,7 @@
         var emptyWeight = 485300;
         var stabFuel = 22110;
         var maxFuel = 421216;
-        var maxPayload = 80484;
+        var maxTOW = 9870000;
 
         function calc() {
             document.getElementById('msg').innerText = '';
@@ -24,6 +24,7 @@
             let fuelLbs = parseInt(document.getElementById('fuel').value);
             let zfwLbs = parseInt(document.getElementById('zfw').value);
             let fuelPercent = Math.ceil((fuelLbs / maxFuel) * 100);
+            let maxPayload = (maxTOW - emptyWeight) - fuelLbs;
             let payloadLbs = zfwLbs - emptyWeight;
             let payloadPercent = Math.ceil((payloadLbs / maxPayload) * 100);
             let gross = emptyWeight + payloadLbs + fuelLbs;
